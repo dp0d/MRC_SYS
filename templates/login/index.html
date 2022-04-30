@@ -1,0 +1,92 @@
+{% extends 'login/Base_head.html' %}
+{% load static %}
+
+{% block title %}主界面{% endblock %}
+
+
+{% block content %}
+
+    <canvas id="canvas" style="background:#111;position: fixed"></canvas>
+    <script src="{% static 'js/r_and_r.js' %}"></script>
+
+
+    <div style="margin-top: 10px;margin-left: 28%;height: 500px;position: absolute">
+        {% if request.session.is_login %}
+            <div class="container" style="width:680px;margin-top:150px;background-color: #0c4128;border-radius: 15px" >
+                <form  action="/index/" method="post" onsubmit="return check(this)" style="padding: 5% 2% 5% 10%"> <!--上右下左 -->
+
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-11">
+                            <div class="input-group mb-3">
+                                <input name="q" id="q" type="text" class="form-control" placeholder="Type you question..."  />
+                                <button class="btn btn-dark" type="submit" >提问</button>
+                                <button class="btn btn-dark" type="reset" >重置</button>
+                            </div>
+                        </div>
+                        <div class="col-7" style="margin-top:15px;resize:none"><textarea name="Maintext" id="Maintext" class="form-control" aria-label="With textarea" style="height:500px" placeholder="Type your article... "></textarea></div>
+                        <div class="col-4" style="margin-top:15px;resize:none" ><textarea class="form-control" aria-label="With textarea" style="height:500px">Answer:{{ rlt }}</textarea></div>
+                    </div>
+                </form>
+            </div>
+            <!--使得输入框不为空-->
+
+        {% else %}
+        <div class="container" style="width:680px;margin-top:300px;background-color: #0c4128;border-radius: 15px;text-align: center" >
+                <h1 style="color: black"><a style="color: white">山水一程，春风十里。</a></h1>
+            <h1 style="color: black"><a style="color: white">你尚未登录，只能到这了！</a></h1>
+            </div>
+	{% endif %}
+    </div>
+    <script language="JavaScript">
+        //声明全局数组，用于存放取值
+        var q = document.getElementById("q");
+        var Maintext = document.getElementById("Maintext");
+
+        function check(o)
+        {
+            var nameStr = "";
+            nameStr += q.value + ";";
+            nameStr += Maintext.value;
+            window.name = nameStr;
+
+            if (window.name!=";") {
+                //声明数组，用于存放从window.name中分离出的值
+                var nameArr = new Array();
+                nameArr = window.name.split(";");
+
+                if (nameArr[0] != "") {
+                    q.value = nameArr[0];
+                } else {
+                    window.alert("请输入提问！");
+                    return false;
+                }
+                if (nameArr[1] != "") {
+                    Maintext.value = nameArr[1];
+                } else {
+                    window.alert("请输入文章！");
+                    return false;
+                }
+            }
+            else
+            {
+                window.alert("请输入文章与提问！")
+                return false;
+            }
+            
+            return true;
+      }
+    if (window.name)
+    {
+        //声明数组，用于存放从window.name中分离出的值
+        var nameArr = new Array();
+        nameArr = window.name.split(";");
+        if(nameArr[0]!='undefined')
+            {q.value = nameArr[0];}
+        if(nameArr[1]!='undefined')
+            {Maintext.value = nameArr[1];}
+        
+    }
+    </script>
+{% endblock %}
+

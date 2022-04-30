@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>机器阅读理解体验系统</title>
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" >
+
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">SRC system for Graduation Design</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0"></ul>
+            <form class="d-flex">
+                {% if request.session.is_login %}
+                    <button class="btn btn-outline-success" ><a href="/login/" style="text-decoration: none">登录当前在线：{{ request.session.user_name }}</a></button>
+                    <button class="btn btn-outline-success"  style="margin-left: 10px"><a href="/logout/" style="text-decoration: none">登出</a></button>
+                {% else %}
+                    <button class="btn btn-outline-success"  ><a href="/login/" style="text-decoration: none;font-weight: bold;color: #0d6efd">登录</a></button>
+                    <button class="btn btn-outline-success"  style="margin-left: 10px"><a href="/register/" style="text-decoration: none">注册</a></button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</nav>
+{% block content %}{% endblock %}
+
+<div style="width:100%; height:146px; background-color:#212529; text-align:center;position: absolute;margin-top:820px">
+    <p style="color: #6e6e6e;
+        line-height: 90px;
+        align-content: center;
+        text-align:center;
+        font-size: 10px;">COPYRIGHT © 2021 – 2099 NCU. ALL RIGHTS RESERVED.</p>
+    <p style="color: #6e6e6e;
+        line-height: 24px;
+        text-align:center;
+        font-size: 10px;margin: 0">南昌大学 版权所有</p>
+</div>
+</body>
+</html>

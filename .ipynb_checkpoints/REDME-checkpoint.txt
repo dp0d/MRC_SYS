@@ -1,0 +1,4 @@
+超级用户创建命令 python manage.py createsuperuser root
+
+root
+123
